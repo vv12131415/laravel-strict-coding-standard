@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<ruleset name="LaravelStrictCodingStandard">
+ <description>Laravel Strict Coding Standard</description>
+</ruleset>

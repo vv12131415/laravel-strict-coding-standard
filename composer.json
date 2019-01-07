@@ -1,0 +1,41 @@
+{
+  "name": "vladyslavstartsev/laravel-strict-coding-standard",
+  "description": "PHP_CodeSniffer rules for Laravel to force the \"right\" design of the app",
+  "license": "MIT",
+  "type": "phpcodesniffer-standard",
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "homepage": "https://github.com/vladyslavstartsev/laravel-strict-coding-standard",
+  "authors": [
+    {
+      "name": "Vladyslav Startsev",
+      "email": "vladyslavstartsev+gh@gmail.com"
+    }
+  ],
+  "require": {
+    "php": "^7.2",
+    "laravel/framework": "~5.7",
+    "dealerdirect/phpcodesniffer-composer-installer": "^0.5.0",
+    "slevomat/coding-standard": "^4.8.6",
+    "squizlabs/php_codesniffer": "^3.4.0"
+  },
+  "require-dev": {
+    "phpstan/phpstan": "0.10.7",
+    "phpstan/phpstan-phpunit": "0.10",
+    "phpstan/phpstan-strict-rules": "0.10.1",
+    "phpunit/phpunit": "7.5.1"
+  },
+  "config": {
+    "sort-packages": true
+  },
+  "autoload": {
+    "psr-4": {
+      "LaravelStrictCodingStandard\\": "LaravelStrictCodingStandard"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "LaravelStrictCodingStandard\\": "tests"
+    }
+  }
+}
