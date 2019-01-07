@@ -15,9 +15,9 @@
   "require": {
     "php": "^7.2",
     "laravel/framework": "~5.7",
-    "dealerdirect/phpcodesniffer-composer-installer": "^0.5.0",
-    "slevomat/coding-standard": "^4.8.6",
-    "squizlabs/php_codesniffer": "^3.4.0"
+    "dealerdirect/phpcodesniffer-composer-installer": "^0.4.4",
+    "slevomat/coding-standard": "^4.8.0",
+    "squizlabs/php_codesniffer": "^3.3.2"
   },
   "require-dev": {
     "phpstan/phpstan": "0.10.7",
