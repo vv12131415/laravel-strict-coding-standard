@@ -11,7 +11,7 @@ class DisallowUseOfFacadesSniffTest extends TestCase
     public function testNoErrors(): void
     {
         $file = self::checkFile(__DIR__ . '/data/NoFacadeUsageClass.php',[
-            'laravelApplicationInstancePath' => [__DIR__ . '/LaravelApplication/bootstrap/app.php']
+            'laravelApplicationInstancePath' => __DIR__ . '/LaravelApplication/bootstrap/app.php'
         ]);
         self::assertNoSniffErrorInFile($file);
     }
@@ -19,7 +19,7 @@ class DisallowUseOfFacadesSniffTest extends TestCase
     public function testErrors(): void
     {
         $report = self::checkFile(__DIR__ . '/data/FacadeUsageClass.php', [
-            'laravelApplicationInstancePath' => [__DIR__ . '/LaravelApplication/bootstrap/app.php']
+            'laravelApplicationInstancePath' => __DIR__ . '/LaravelApplication/bootstrap/app.php'
         ]);
 
         self::assertSame(2, $report->getErrorCount());
@@ -31,7 +31,7 @@ class DisallowUseOfFacadesSniffTest extends TestCase
     public function testRealTimeFacadeErrors(): void
     {
         $report = self::checkFile(__DIR__ . '/data/RealTimeFacadeUsageClass.php', [
-            'laravelApplicationInstancePath' => [__DIR__ . '/LaravelApplication/bootstrap/app.php']
+            'laravelApplicationInstancePath' => __DIR__ . '/LaravelApplication/bootstrap/app.php'
         ]);
         self::assertSame(1, $report->getErrorCount());
 
