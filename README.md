@@ -18,9 +18,3 @@ by [Laravel](https://laravel.com)
 * checks for usage of Laravel Facades (including Real-time facades)
 * if not configured it will use default path for `Illuminate\Foundation\Application`
 instance `bootstrap/app.php`
-*
-
-
-<!--
-todo note that you need to provide "basepath" if you use only  facades sniff running in console
-i.e. ` ./vendor/bin/phpcs --sniffs="LaravelStrictCodingStandard.Laravel.DisallowUseOfFacades" --standard="LaravelStrictCodingStandard" app/Exceptions/Handler.php `-->
