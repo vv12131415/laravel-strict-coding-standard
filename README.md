@@ -32,4 +32,4 @@ to override, do this
     </properties>
 </rule>
 ```
-we need this instance, so we can get all Facades and Aliases that are potentially used in the app
+we need this instance, so we can get all Facades and Aliases that are potentially used in the app ( yes, this looks like dynamic code analysis, but that's the only way how to find out all Facades, if you have ideas how to do it statically, feel free to make PR)
