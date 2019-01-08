@@ -17,4 +17,19 @@ by [Laravel](https://laravel.com)
 
 * checks for usage of Laravel Facades (including Real-time facades)
 * if not configured it will use default path for `Illuminate\Foundation\Application`
-instance `bootstrap/app.php`
+instance at `bootstrap/app.php`
+
+so for default `Illuminate\Foundation\Application` instance use
+```xml
+<rule ref="LaravelStrictCodingStandard.Laravel.DisallowUseOfFacades"/>
+```
+to override, do this
+
+```xml
+<rule ref="LaravelStrictCodingStandard.Laravel.DisallowUseOfFacades">
+    <properties>
+        <property name="laravelApplicationInstancePath" type="string" value=".nonDefaultFolder/application.php"/>
+    </properties>
+</rule>
+```
+we need this instance, so we can get all Facades and Aliases that are potentially used in the app
