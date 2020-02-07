@@ -4,6 +4,12 @@
 do force developers not to use bad design decisions that are supported
 by [Laravel](https://laravel.com)
 
+## Installing
+
+```bash
+composer require --dev vladyslavstartsev/laravel-strict-coding-standard
+```
+
 ## Sniffs included in this standard
 
 ### LaravelStrictCodingStandard.Laravel.DisallowUseOfGlobalFunctions
