@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="LaravelStrictCodingStandard" xsi:noNamespaceSchemaLocation="../vendor/squizlabs/php_codesniffer/phpcs.xsd">
+    <arg name="extensions" value="php"/>
+    <arg name="tab-width" value="4"/>
+    <arg name="cache" value="./../temp/phpcs"/>
+    <arg value="s"/>
+    <arg value="p"/>
+
+    <file>./../</file>
+    <exclude-pattern>*/tests/*/data/*</exclude-pattern>
+    <exclude-pattern>*/tests/Sniffs/Laravel/LaravelApplication/bootstrap/cache/*</exclude-pattern>
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+
+
+    <rule ref="Doctrine"/>
+</ruleset>
