@@ -15,11 +15,11 @@
 >
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">../LaravelStrictCodingStandard</directory>
+            <directory suffix=".php">LaravelStrictCodingStandard</directory>
         </whitelist>
     </filter>
     <testsuites>
-        <testsuite name="Doctrine ORM Test Suite">
+        <testsuite name="LaravelStrictCodingStandard Test Suite">
             <directory>./tests/</directory>
         </testsuite>
     </testsuites>

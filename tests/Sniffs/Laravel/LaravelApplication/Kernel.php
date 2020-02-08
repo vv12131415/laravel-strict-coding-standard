@@ -8,5 +8,4 @@ use Illuminate\Foundation\Console\Kernel as BaseKernel;
 
 class Kernel extends BaseKernel
 {
-
 }
