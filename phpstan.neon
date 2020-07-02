@@ -8,8 +8,9 @@ parameters:
     paths:
         - LaravelStrictCodingStandard
         - tests
-    autoload_files:
+    bootstrapFiles:
         - %currentWorkingDirectory%/vendor/squizlabs/php_codesniffer/autoload.php
+    scanFiles:
         - %currentWorkingDirectory%/vendor/squizlabs/php_codesniffer/src/Util/Tokens.php
     excludes_analyse:
         - */tests/*/data/*
@@ -17,25 +18,4 @@ parameters:
 #       force Laravel to add Kernel::bootstrap to interface
         -
             message: '#Call to an undefined method Illuminate\\Contracts\\Console\\Kernel::bootstrap\(\)#'
-            path: LaravelStrictCodingStandard/Sniffs/Laravel/DisallowUseOfFacadesSniff.php
-#       make PHP_CodeSniffer\Config::class access properties non magical way
-        -
-            message: '#Access to an undefined property PHP_CodeSniffer\\Config::\$basepath#'
-            path: LaravelStrictCodingStandard/Sniffs/Laravel/DisallowUseOfFacadesSniff.php
-#       could not find a way for phpstan to show that array is empty. It thinks that I'm trying to access some const in the namespace when doing array<empty>
-        -
-            message: '#expects int, [a-zA-Z\\\|]*empty given#'
-            path: LaravelStrictCodingStandard/Sniffs/Laravel/DisallowUseOfFacadesSniff.php
-        -
-            message: '#has invalid typehint type [a-zA-Z\\]*empty\.#'
-            path: LaravelStrictCodingStandard/Sniffs/Laravel/DisallowUseOfFacadesSniff.php
-        -
-            message: '#has invalid type [a-zA-Z\\]*empty\.#'
-            path: LaravelStrictCodingStandard/Sniffs/Laravel/DisallowUseOfFacadesSniff.php
-#       will be fixed with this one https://github.com/vimeo/psalm/issues/2442
-        -
-            message: '#Call to function assert\(\) with true will always evaluate to true\.#'
-            path: LaravelStrictCodingStandard/Sniffs/Laravel/DisallowUseOfFacadesSniff.php
-        -
-            message: '#Instanceof between [a-zA-Z\\]* and [a-zA-Z\\]* will always evaluate to true.#'
             path: LaravelStrictCodingStandard/Sniffs/Laravel/DisallowUseOfFacadesSniff.php

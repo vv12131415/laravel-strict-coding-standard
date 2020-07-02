@@ -17,6 +17,7 @@ use SlevomatCodingStandard\Helpers\StringHelper;
 use SlevomatCodingStandard\Helpers\TokenHelper;
 use SlevomatCodingStandard\Helpers\UseStatement;
 use SlevomatCodingStandard\Helpers\UseStatementHelper;
+
 use function array_fill_keys;
 use function array_key_exists;
 use function array_keys;
@@ -25,6 +26,7 @@ use function array_values;
 use function assert;
 use function file_exists;
 use function is_object;
+
 use const DIRECTORY_SEPARATOR;
 use const T_COMMA;
 use const T_OPEN_TAG;
@@ -39,7 +41,7 @@ class DisallowUseOfFacadesSniff implements Sniff
 
     /**
      * @psalm-suppress MissingConstructor
-     * @var string|null
+     * @var            string|null
      */
     public $laravelApplicationInstancePath;
     /** @var array<string, array<string, bool>>|null */
@@ -50,27 +52,25 @@ class DisallowUseOfFacadesSniff implements Sniff
     /**
      * @return array<int, (int|string)>
      */
-    public function register() : array
+    public function register(): array
     {
         return [T_OPEN_TAG];
     }
 
     /**
-     * @param File $phpcsFile
-     * @param int  $openTagPointer
+     * @param int $openTagPointer
      *
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.UselessAnnotation
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      */
-    public function process(File $phpcsFile, $openTagPointer) : void
+    public function process(File $phpcsFile, $openTagPointer): void
     {
         $useStatements            = UseStatementHelper::getUseStatementsForPointer($phpcsFile, $openTagPointer);
-        $facades                  = $this->getFacades(
-            $this->laravelInstancePath($phpcsFile)
-        );
+        $facades                  = $this->getFacades($this->laravelInstancePath($phpcsFile));
         $realTimeFacadesNamespace = $this->getRealTimeFacadesNamespace();
         foreach ($useStatements as $useStatement) {
-            /** @psalm-suppress InternalMethod */
+            /**
+             * @psalm-suppress InternalMethod
+             */
             $useStatementFullyQualifiedTypeName = $useStatement->getFullyQualifiedTypeName();
             $hasRealTimeFacadeNamespace         = StringHelper::startsWith(
                 $useStatementFullyQualifiedTypeName,
@@ -84,13 +84,17 @@ class DisallowUseOfFacadesSniff implements Sniff
         }
 
         foreach ($useStatements as $useStatement) {
-            /** @psalm-suppress InternalMethod */
+            /**
+             * @psalm-suppress InternalMethod
+             */
             $useStatementFullyQualifiedTypeName = $useStatement->getFullyQualifiedTypeName();
             if (! array_key_exists($useStatementFullyQualifiedTypeName, $facades)) {
                 continue;
             }
 
-            /** @psalm-suppress InternalMethod */
+            /**
+             * @psalm-suppress InternalMethod
+             */
             $useStatementStartPointer = $useStatement->getPointer() + 1;
             $useStatementEndPointer   = TokenHelper::findNext(
                 $phpcsFile,
@@ -115,7 +119,9 @@ class DisallowUseOfFacadesSniff implements Sniff
             }
 
             foreach ($facadeUsagePointers as $facadeUsagePointer) {
-                /** @psalm-suppress InternalMethod */
+                /**
+                 * @psalm-suppress InternalMethod
+                 */
                 $useStatementNameInFile = $useStatement->getNameAsReferencedInFile();
                 $phpcsFile->addError(
                     'It is strongly discouraged not to use %s'
@@ -130,17 +136,19 @@ class DisallowUseOfFacadesSniff implements Sniff
     }
 
     /**
-     * @param array<empty>|list<int> $facadeUsagePointers
+     * @param list<int> $facadeUsagePointers
      *
-     * @return array<empty>|list<int>
+     * @return list<int>
      */
     private function getFacadeUsagePointers(
         File $phpcsFile,
         UseStatement $useStatement,
         int $endPointer,
         array $facadeUsagePointers
-    ) : array {
-        /** @psalm-suppress InternalMethod */
+    ): array {
+        /**
+         * @psalm-suppress InternalMethod
+         */
         $useStatementNameInFile = $useStatement->getNameAsReferencedInFile();
         $facadeUsagePointer     = TokenHelper::findNextContent(
             $phpcsFile,
@@ -165,14 +173,16 @@ class DisallowUseOfFacadesSniff implements Sniff
     /**
      * @return array<string, array<string, bool>>
      */
-    private function getFacades(string $laravelInstancePath) : array
+    private function getFacades(string $laravelInstancePath): array
     {
         if ($this->facades !== null) {
             return $this->facades;
         }
 
         $this->bootstrapAndTerminateLaravelApplication($laravelInstancePath);
-        /** @var array<string, string> $aliasesFacades */
+        /**
+         * @var array<string, string> $aliasesFacades
+         */
         $aliasesFacades = AliasLoader::getInstance()->getAliases();
         $this->facades  = array_fill_keys(
             array_merge(
@@ -185,7 +195,7 @@ class DisallowUseOfFacadesSniff implements Sniff
         return $this->facades;
     }
 
-    private function getRealTimeFacadesNamespace() : string
+    private function getRealTimeFacadesNamespace(): string
     {
         if ($this->realTimeFacadesNamespace !== null) {
             return $this->realTimeFacadesNamespace;
@@ -195,7 +205,9 @@ class DisallowUseOfFacadesSniff implements Sniff
         $facadeNamespaceReflectionProperty = (new ReflectionClass($aliasLoaderInstance))
             ->getProperty('facadeNamespace');
         $facadeNamespaceReflectionProperty->setAccessible(true);
-        /** @psalm-var string realTimeFacadesNamespace */
+        /**
+         * @psalm-var string realTimeFacadesNamespace
+         */
         $this->realTimeFacadesNamespace = $facadeNamespaceReflectionProperty->getValue($aliasLoaderInstance);
 
         return $this->realTimeFacadesNamespace;
@@ -204,14 +216,15 @@ class DisallowUseOfFacadesSniff implements Sniff
     /**
      * need to do it so we can load all facades and their aliases
      */
-    private function bootstrapAndTerminateLaravelApplication(string $laravelInstancePath) : void
+    private function bootstrapAndTerminateLaravelApplication(string $laravelInstancePath): void
     {
         /**
-         * @var Application|mixed $laravelApplicationInstance
+         * @var            Application|mixed $laravelApplicationInstance
          * @psalm-suppress UnresolvableInclude
          */
-        $laravelApplicationInstance = require $laravelInstancePath;
-        if (! is_object($laravelApplicationInstance)
+        $laravelApplicationInstance = include $laravelInstancePath;
+        if (
+            ! is_object($laravelApplicationInstance)
             || (! $laravelApplicationInstance instanceof Application)
         ) {
             throw new InstanceIsNotLaravelApplication(
@@ -220,18 +233,17 @@ class DisallowUseOfFacadesSniff implements Sniff
             );
         }
 
-        // phpcs:disable SlevomatCodingStandard.PHP.RequireExplicitAssertion.RequiredExplicitAssertion
-        /** @var Kernel $kernel */
         $kernel = $laravelApplicationInstance->make(Kernel::class);
-        // phpcs:enable
         assert($kernel instanceof Kernel);
         $kernel->bootstrap();
         $laravelApplicationInstance->terminate();
     }
 
-    private function laravelInstancePath(File $phpcsFile) : string
+    private function laravelInstancePath(File $phpcsFile): string
     {
-        /** @var ?string $basePath */
+        /**
+         * @var ?string $basePath
+         */
         $basePath = $phpcsFile->config->basepath;
         if ($basePath === null) {
             $basePath = __DIR__
