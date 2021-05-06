@@ -12,9 +12,9 @@
   ],
   "require": {
     "php": "^7.2",
-    "laravel/framework": "5.7.* || 5.8.* || ^6.0 || ^7.0",
-    "slevomat/coding-standard": "^6.0",
-    "squizlabs/php_codesniffer": "^3.4.0"
+    "laravel/framework": "^7.0 || ^8.0",
+    "slevomat/coding-standard": "^7.0",
+    "squizlabs/php_codesniffer": "^3.6.0"
   },
   "require-dev": {
     "doctrine/coding-standard": "^8.0",
